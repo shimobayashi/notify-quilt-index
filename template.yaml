@@ -27,7 +27,6 @@ Resources:
           LINE_NOTIFY_API_KEY: !Ref LineNotifyApiKey
 
 Parameters:
-  # メモ: ここの名前はLINE_NOTIFY_API_KEYだとうまくいかなかった。Viriablesセクションで循環参照みたいな感じになってるとか？調べられてない。CFnのこと知ってたら判断できるのかも
   LineNotifyApiKey:
     Type: String
 
