@@ -25,15 +25,24 @@ Resources:
       Environment:
         Variables:
           LINE_NOTIFY_API_KEY: !Ref LineNotifyApiKey
+  NotifyRealQuiltIndexFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: hello_world/
+      Handler: notify_real_quilt_index.lambda_handler
+      Runtime: ruby2.5
+      Events:
+        NotifyQuiltIndex:
+          Type: Schedule
+          Properties:
+            Schedule: cron(0 21 * * ? *)
+      Environment:
+        Variables:
+          LINE_NOTIFY_API_KEY: !Ref LineNotifyApiKey
+          MACKEREL_API_KEY: !Ref MackerelApiKey
 
 Parameters:
   LineNotifyApiKey:
     Type: String
-
-Outputs:
-  HelloWorldFunction:
-    Description: "Hello World Lambda Function ARN"
-    Value: !GetAtt HelloWorldFunction.Arn
-  HelloWorldFunctionIamRole:
-    Description: "Implicit IAM Role created for Hello World function"
-    Value: !GetAtt HelloWorldFunctionRole.Arn
+  MackerelApiKey:
+    Type: String

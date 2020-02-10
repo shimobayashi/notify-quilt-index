@@ -40,7 +40,6 @@ def lambda_handler(event:, context:)
   })
   message = "本日のお布団指数は #{info[:quilt_index].round(1)} です。これは #{info[:suggestion][:short]} の水準で、寝具は #{info[:suggestion][:long]} をおすすめします。"
 
-  puts ENV['LINE_NOTIFY_API_KEY']
   response = HTTParty.post(
     'https://notify-api.line.me/api/notify',
     :headers => {
