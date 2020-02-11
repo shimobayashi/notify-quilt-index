@@ -4,11 +4,11 @@ require 'httparty'
 require_relative 'quilt_index_calculator'
 
 def lambda_handler(event:, context:)
-  info = QuiltIndexCalculator.quilt_index_and_info({
-    temperature: fetch_current_metric('natureremo.temperature.Remo'),
-    humidity: fetch_current_metric('natureremo.humidity.Remo'),
-  })
-  message = "お布団指数の実測値は #{info[:quilt_index].round(1)} でした。これは #{info[:suggestion][:short]} の水準で、寝具は #{info[:suggestion][:long]} をおすすめします。"
+  target_di = QuiltIndexCalculator.discomfort_index(33, 55)
+  current_di = QuiltIndexCalculator.discomfort_index(fetch_current_metric('natureremo.temperature.Remo'), fetch_current_metric('natureremo.humidity.Remo'))
+  quilt_index = target_di - current_di
+
+  message = "お布団指数の実測値は #{quilt_index.round(1)} でした。"
 
   response = HTTParty.post(
     'https://notify-api.line.me/api/notify',
