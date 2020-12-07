@@ -6,7 +6,7 @@ require_relative 'quilt_index_calculator'
 
 def lambda_handler(event:, context:)
   agent = Mechanize.new
-  page = agent.get('http://www.tenki.jp/forecast/6/29/6110/26104.html')
+  page = agent.get('http://www.tenki.jp/forecast/3/17/4610/14201.html')
   
   heads = page.search('tr.head td')
   hours = page.search('tr.hour td')
