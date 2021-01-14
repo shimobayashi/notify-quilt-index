@@ -75,9 +75,14 @@ class QuiltIndexCalculator
       # 室内の相対湿度を推定する
       ## 室外の水蒸気量を算出し、そこから室内の相対湿度を推定する
       ## 一般に外気温よりも室温の方が高いため、相対湿度は低くなる
-      outer_a = a(temp, humd)
-      inner_a = outer_a + 2.0 # 室内の水蒸気量を雑に推定 人間とかいりゃ水蒸気量これくらい増えるだろ多分
-      inner_humd = rh(inner_temp, inner_a)
+      #outer_a = a(temp, humd)
+      #inner_a = outer_a + 2.0 # 室内の水蒸気量を雑に推定 人間とかいりゃ水蒸気量これくらい増えるだろ多分
+      #inner_humd = rh(inner_temp, inner_a)
+
+      # 湿度はあまり室外の状況に左右されないということが分かってきたので、
+      # とりあえず適当に決め打ちしておく
+      # 元気があったら月によって変えても良いかも(6月なら60%とか)
+      inner_humd = 50
   
       return {
         temperature: inner_temp,
